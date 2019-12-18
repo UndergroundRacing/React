@@ -11,11 +11,10 @@ class Register extends React.Component {
 
         this.state = {
             email: "",
+            name: "",
             user_name: "",
             password: "",
             repeat_pass: "",
-            register: true,
-            home: false,
             pass_match: null
         };
         this.handleChange = this.handleChange.bind(this);
@@ -25,10 +24,7 @@ class Register extends React.Component {
 
     handleClick(event) {
 
-        this.setState({
-            register: false,
-            home: true
-        });
+        this.props.history.push('/');
 
     }
 
@@ -42,6 +38,11 @@ class Register extends React.Component {
             case "user_name":
                 this.setState({
                     user_name: event.target.value
+                });
+                break;
+            case "name":
+                this.setState({
+                    name: event.target.value
                 });
                 break;
             case "pass":
@@ -60,9 +61,29 @@ class Register extends React.Component {
     }
 
     handleSubmit(event) {
-        if (this.state.pass === this.state.repeat_pass) {
-            alert("Slaptažodžiai sutampa");
+        let pass = this.state.pass;
+        let c_pass = this.state.repeat_pass;
+
+        if (c_pass.localeCompare(pass)) {
+            console.log("Passwords match, submitting registration form");
             this.setState({pass_match: true});
+
+            fetch('http://127.0.0.1:8000/api/v1/register', {
+                method: 'post',
+                body: JSON.stringify({
+                    name: this.state.name,
+                    email: this.state.email,
+                    password: this.state.password,
+                    c_password: this.state.repeat_pass,
+                    username: this.state.user_name
+                })
+
+
+            }).then((Response) => Response.json()).then((Result) => {
+                if (Result.Status == 'success')
+                    console.log('Registration complete');
+                else alert('Registration unsuccessful');
+            })
         } else {
             this.setState({pass_match: false});
         }
@@ -74,7 +95,6 @@ class Register extends React.Component {
         let warning_msg = this.state.pass_match === false ?
             <span className={"form-warn"}>Slaptažodžiai turi sutapti</span> : null;
 
-        if (this.state.register) {
             return (<div className={"log-reg"}>
 
                 <div className={"user-form"}>
@@ -88,6 +108,11 @@ class Register extends React.Component {
                         </label>
 
                         <label>
+                            Vardas
+                            <input type="text" id={"name"} value={this.state.name} onChange={this.handleChange}/>
+                        </label>
+
+                        <label>
                             Vartotojo vardas
                             <input type="text" id={"user_name"} value={this.state.user_name}
                                    onChange={this.handleChange}/>
@@ -95,7 +120,8 @@ class Register extends React.Component {
 
                         <label>
                             Slaptažodis
-                            <input type="password" id={"pass"} value={this.state.password} onChange={this.handleChange}/>
+                            <input type="password" id={"pass"} value={this.state.password}
+                                   onChange={this.handleChange}/>
                         </label>
 
                         <label>
@@ -114,9 +140,6 @@ class Register extends React.Component {
                 </div>
 
             </div>);
-        } else if (this.state.home) {
-            return <Main/>;
-        }
     }
 }
 

@@ -21,36 +21,16 @@ class Main extends React.Component {
     handleClick(event) {
         switch (event.target.id) {
             case "login":
-                this.setState({
-                    main: false,
-                    login: true,
-                    register: false,
-                    about: false
-                });
+                this.props.history.push('/Login');
                 break;
             case "register":
-                this.setState({
-                    main: false,
-                    login: false,
-                    register: true,
-                    about: false
-                });
+                this.props.history.push('/Register');
                 break;
             case "about":
-                this.setState({
-                    main: false,
-                    login: false,
-                    register: false,
-                    about: true
-                });
+                this.props.history.push('/About');
                 break;
             default:
-                this.setState({
-                    main: true,
-                    login: false,
-                    register: false,
-                    about: false
-                });
+               this.props.history.push('/');
 
         }
     }
@@ -69,11 +49,11 @@ class Main extends React.Component {
                     </div>
                 </div>
             );
-        } else if (this.state.login) {
+        } else if (window.location.pathname === "/Login") {
             return <Login/>;
-        } else if (this.state.register) {
+        } else if (window.location.pathname === '/Register') {
             return <Register/>;
-        } else if (this.state.about) {
+        } else if (window.location.pathname === '/About') {
             return <About/>;
         }
     };

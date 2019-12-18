@@ -2,7 +2,6 @@ import React from "react";
 import '../src/css/main.css';
 import HomePage from "./pages/HomePage";
 import Shop from "./pages/Shop";
-import About from "./pages/About";
 import Garage from "./pages/Garage";
 
 class Menu extends React.Component {
@@ -10,14 +9,7 @@ class Menu extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            home: true,
-            about: false,
-            shop: false,
-            garage: false,
-            settings: false,
-            logout: false
-        };
+        this.state = {};
 
         this.handleClick = this.handleClick.bind(this);
 
@@ -25,83 +17,35 @@ class Menu extends React.Component {
 
     handleClick(event) {
         switch (event.target.id) {
-            case "about":
-                this.setState({
-                    home: false,
-                    about: true,
-                    news: false,
-                    shop: false,
-                    garage: false,
-                    settings: false,
-                    logout: false
-                });
-                break;
             case "shop":
-                this.setState({
-                    home: false,
-                    about: false,
-                    news: false,
-                    shop: true,
-                    garage: false,
-                    settings: false,
-                    logout: false
-                });
+                this.props.history.push('/Shop');
                 break;
             case "garage":
-                this.setState({
-                    home: false,
-                    about: false,
-                    news: false,
-                    shop: false,
-                    garage: true,
-                    settings: false,
-                    logout: false
-                });
+                this.props.history.push('/Garage');
                 break;
             case "settings":
-                this.setState({
-                    home: false,
-                    about: false,
-                    news: false,
-                    shop: false,
-                    garage: false,
-                    settings: true,
-                    logout: false
-                });
+
                 break;
             case "logout":
-                this.setState({
-                    home: false,
-                    about: false,
-                    news: false,
-                    shop: false,
-                    garage: false,
-                    settings: false,
-                    logout: true
-                });
+                this.props.history.push('/');
                 break;
             default:
-                this.setState({
-                    home: true,
-                    about: false,
-                    news: false,
-                    shop: false,
-                    garage: false,
-                    settings: false,
-                    logout: false
-                });
+                this.props.history.push('/Home');
         }
     }
 
     render() {
         function LoadPage(props) {
-            if (props.props.home) {
+
+            console.log('Page link', window.location.pathname);
+
+            let location = window.location.pathname;
+
+            if (location === "/Home") {
                 return <HomePage/>;
-            } else if (props.props.about) {
-                return <About/>;
-            } else if (props.props.shop) {
+            } else if (location === "/Shop") {
                 return <Shop/>;
-            } else if (props.props.garage) {
+            } else if (location === "/Garage") {
                 return <Garage/>;
             } else if (props.props.settings) {
                 return null;
@@ -118,29 +62,24 @@ class Menu extends React.Component {
             );
         }
 
-        let homeBtn = this.state.home ?
+        let homeBtn = window.location.pathname === "/Home" ?
             <li id={"home"} onClick={this.handleClick} style={{color: "red"}}><i className="fa fa-home"/></li> :
             <li id={"home"} onClick={this.handleClick}><i className="fa fa-home"/></li>;
 
-        let aboutBtn = this.state.about ?
-            <li id={"about"} onClick={this.handleClick} style={{color: "red"}}>Apie</li> :
-            <li id={"about"} onClick={this.handleClick}>Apie</li>;
-
-        let shopBtn = this.state.shop ?
+        let shopBtn = window.location.pathname === "/Shop" ?
             <li id="shop" onClick={this.handleClick} style={{color: "red"}}>Parduotuvė</li> :
             <li id="shop" onClick={this.handleClick}>Parduotuvė</li>;
 
-        let garageBtn = this.state.garage ?
+        let garageBtn = window.location.pathname === "/Garage" ?
             <li id={"garage"} onClick={this.handleClick} style={{color: "red"}}>Garažas</li> :
             <li id={"garage"} onClick={this.handleClick}>Garažas</li>;
 
-        let userInfo = this.state.home ? null : <UserMiniInfo/>;
+        let userInfo = window.location.pathname !== "/Home" ? <UserMiniInfo/> : null;
 
         return (<div>
             <ul className={"top-menu"}>
                 <div className={"menu-logo"}><i className="fa fa-flag-checkered"/> Underground Racing</div>
                 {homeBtn}
-                {aboutBtn}
                 {shopBtn}
                 {garageBtn}
                 <li id={"settings"} onClick={this.handleClick}><i className="fa fa-cog"/></li>

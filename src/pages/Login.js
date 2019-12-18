@@ -14,10 +14,6 @@ class Login extends React.Component {
         this.state = {
             email: "",
             password: "",
-            login: true,
-            forgot_pass: false,
-            return: false,
-            register: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,36 +23,16 @@ class Login extends React.Component {
     handleClick(event) {
         switch (event.target.id) {
             case "forgot_pass":
-                this.setState({
-                    forgot_pass: true,
-                    return: false,
-                    login: false,
-                    register: false
-                });
+
                 break;
             case "home":
-                this.setState({
-                    forgot_pass: false,
-                    return: true,
-                    login: false,
-                    register: false
-                });
+                this.props.history.push('/');
                 break;
             case "register":
-                this.setState({
-                    forgot_pass: false,
-                    return: false,
-                    login: false,
-                    register: true
-                });
+                this.props.history.push('/Register');
                 break;
             default:
-                this.setState({
-                    forgot_pass: false,
-                    return: false,
-                    login: true,
-                    register: false
-                });
+                this.props.history.push('/Login');
         }
     }
 
@@ -78,45 +54,55 @@ class Login extends React.Component {
     }
 
     handleSubmit(event) {
-        event.preventDefault();
+        fetch('http://127.0.0.1:8000/api/v1/login', {
+            method: 'post',
+            body: JSON.stringify({
+
+                email: this.state.email,
+                password: this.state.password,
+
+            })
+
+
+        }).then((Response) => Response.json()).then((Result) => {
+            if (Result.Status == 'success')
+                console.log('Login successful');
+            else alert('Login unsuccessful');
+        })
     }
 
+
     render() {
-        if (this.state.login) {
-            return (<div className={"log-reg"}>
+        return (<div className={"log-reg"}>
 
-                <div className={"user-form"}>
-                    <div className={"logo"}>Underground Streets</div>
+            <div className={"user-form"}>
+                <div className={"logo"}>Underground Streets</div>
 
-                    <form onSubmit={this.handleSubmit}>
-                        <div className={"form-title"}>Prisijungimas</div>
-                        <label>
-                            El. paštas
-                            <input type="email" id={"email"} value={this.state.email} placeholder={"email"} onChange={this.handleChange}/>
-                        </label>
+                <form onSubmit={this.handleSubmit}>
+                    <div className={"form-title"}>Prisijungimas</div>
+                    <label>
+                        El. paštas
+                        <input type="email" id={"email"} value={this.state.email}
+                               onChange={this.handleChange}/>
+                    </label>
 
-                        <label>
-                            Slaptažodis
-                            <input type="password" id={"password"} value={this.state.password} onChange={this.handleChange}/>
-                        </label>
+                    <label>
+                        Slaptažodis
+                        <input type="password" id={"password"} value={this.state.password}
+                               onChange={this.handleChange}/>
+                    </label>
 
-                        <button type="submit">Prisijungti</button>
-                    </form>
-                    <div className={"form-menu"}>
-                        <span id={"forgot_pass"} onClick={this.handleClick}>Slaptažodžio priminimas</span>
-                        <i className="fa fa-home" id={"home"} onClick={this.handleClick}/>
-                        <i className="fa fa-user-plus" id={"register"} onClick={this.handleClick}/>
-                    </div>
+                    <button type="submit">Prisijungti</button>
+                </form>
+                <div className={"form-menu"}>
+                    <span id={"forgot_pass"} onClick={this.handleClick}>Slaptažodžio priminimas</span>
+                    <i className="fa fa-home" id={"home"} onClick={this.handleClick}/>
+                    <i className="fa fa-user-plus" id={"register"} onClick={this.handleClick}/>
                 </div>
+            </div>
 
-            </div>);
-        } else if (this.state.return) {
-            return <Main/>;
-        } else if (this.state.forgot_pass) {
-            return <ForgotPass/>;
-        } else if (this.state.register) {
-            return <Register/>
-        }
+        </div>);
+
     }
 }
 
