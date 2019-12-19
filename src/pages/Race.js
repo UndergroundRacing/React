@@ -1,5 +1,7 @@
 import React from "react";
-import '../css/main.css';
+import '../css/styles.css';
+import '../css/race.css';
+
 import UserPhoto from '../img/user_photo.jpg';
 import DefaultUser from '../img/default_user.jpg';
 import EVO9 from '../img/Evo9.png';

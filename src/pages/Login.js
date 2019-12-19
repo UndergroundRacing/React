@@ -1,5 +1,6 @@
 import React from 'react';
-import '../css/main.css';
+import '../css/styles.css';
+import '../css/login_register.css';
 
 //import '../css/mobile.css';
 import Main from "./Main";
@@ -56,6 +57,10 @@ class Login extends React.Component {
     handleSubmit(event) {
         fetch('http://127.0.0.1:8000/api/v1/login', {
             method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
 
                 email: this.state.email,

@@ -1,5 +1,6 @@
 import React from "react";
-import '../css/main.css';
+import '../css/styles.css';
+import '../css/about.css';
 import DefaultImg from "../img/default_img.png";
 
 class About extends React.Component {

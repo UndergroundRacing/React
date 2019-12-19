@@ -1,5 +1,6 @@
 import React from 'react';
-import '../css/main.css';
+import '../css/styles.css';
+import '../css/login_register.css';
 
 //import '../css/mobile.css';
 import Main from "./Main";

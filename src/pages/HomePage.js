@@ -1,6 +1,8 @@
 import React from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar'
-import '../css/main.css';
+import '../css/styles.css';
+import '../css/home.css';
+
 import UserPhoto from '../img/user_photo.jpg';
 import R34 from '../img/R34.png';
 import Evo9 from '../img/Evo9.png';
@@ -161,6 +163,34 @@ class HomePage extends React.Component {
                         </div>
                     </div>
                     {selectCar}
+                </div>
+
+                <div className={"user-abilities"}>
+                    <span>Specialūs gebėjimai</span>
+                    <span>
+                        <table>
+                        <thead>
+                        <tr>
+                            <td>Reakcija</td>
+                            <td>+5</td>
+                            <td><i id={"add-skill"} className="fa fa-plus-square"/></td>
+                            <td>5000$</td>
+                        </tr>
+                        <tr>
+                            <td>Auto žinios</td>
+                            <td>+10</td>
+                            <td><i id={"add-skill"} className="fa fa-plus-square"/></td>
+                            <td>10000$</td>
+                        </tr>
+                        <tr>
+                            <td>Pavarų perjungimas</td>
+                            <td>+7</td>
+                            <td><i id={"add-skill"} className="fa fa-plus-square"/></td>
+                            <td>7500$</td>
+                        </tr>
+                        </thead>
+                    </table>
+                    </span>
                 </div>
             </div>);
         }

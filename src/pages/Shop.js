@@ -1,5 +1,7 @@
 import React from 'react';
-import '../css/main.css';
+import '../css/styles.css';
+import '../css/shop.css';
+
 import R34 from '../img/R34.png';
 import Evo9 from '../img/Evo9.png';
 import Evo5 from '../img/Evo5.png';

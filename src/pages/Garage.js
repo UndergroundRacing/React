@@ -1,5 +1,7 @@
 import React from 'react';
-import '../css/main.css';
+import '../css/styles.css';
+import '../css/garage.css';
+
 import R34 from "../img/R34.png";
 import Evo9 from "../img/Evo9.png";
 import S15 from "../img/S15.png";

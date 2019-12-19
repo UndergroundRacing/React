@@ -1,5 +1,7 @@
 import React from 'react';
+import '../css/styles.css';
 import '../css/main.css';
+
 //import '../css/mobile.css';
 import Login from './Login';
 import Register from './Register';
@@ -39,7 +41,7 @@ class Main extends React.Component {
 
         if (this.state.main) {
             return (<div>
-                    <div className="logo">Underground Streets
+                    <div className="logo">Underground Racing
                         <span>Šūkis</span>
                     </div>
                     <div className="main-menu">

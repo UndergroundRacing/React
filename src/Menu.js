@@ -1,8 +1,12 @@
 import React from "react";
-import '../src/css/main.css';
+import './css/styles.css';
+import './css/menu.css';
+
 import HomePage from "./pages/HomePage";
 import Shop from "./pages/Shop";
 import Garage from "./pages/Garage";
+import Chat from "./pages/Chat";
+import Summary from "./pages/Summary";
 
 class Menu extends React.Component {
 
@@ -23,8 +27,19 @@ class Menu extends React.Component {
             case "garage":
                 this.props.history.push('/Garage');
                 break;
+            case "chat":
+                this.props.history.push('/Chat');
+                break;
+            case "chat-icon":
+                this.props.history.push('/Chat');
+                break;
+            case "summary":
+                this.props.history.push('/Summary');
+                break;
+            case "summary-icon":
+                this.props.history.push('/Summary');
+                break;
             case "settings":
-
                 break;
             case "logout":
                 this.props.history.push('/');
@@ -47,6 +62,10 @@ class Menu extends React.Component {
                 return <Shop/>;
             } else if (location === "/Garage") {
                 return <Garage/>;
+            } else if (location === "/Chat") {
+                return <Chat/>
+            } else if (location === "/Summary") {
+                return <Summary/>
             } else if (props.props.settings) {
                 return null;
             }
@@ -74,6 +93,21 @@ class Menu extends React.Component {
             <li id={"garage"} onClick={this.handleClick} style={{color: "red"}}>Garažas</li> :
             <li id={"garage"} onClick={this.handleClick}>Garažas</li>;
 
+        let chatBtn = window.location.pathname === "/Chat" ?
+            <li id={"chat"} onClick={this.handleClick} style={{color: "red"}}><i id={"chat-icon"}
+                                                                                 onClick={this.handleClick}
+                                                                                 className="fa fa-envelope"/></li> :
+            <li id={"chat"} onClick={this.handleClick}><i id={"chat-icon"} onClick={this.handleClick}
+                                                          className="fa fa-envelope"/></li>
+
+        let summaryBtn = window.location.pathname === "/Summary" ?
+            <li id={"summary"} onClick={this.handleClick} style={{color: "red"}}><i id={"summary-icon"}
+                                                                                    onClick={this.handleClick}
+                                                                                    className="fa fa-list-alt"/></li> :
+            <li id={"summary"} onClick={this.handleClick}><i id={"summary-icon"}
+                                                             onClick={this.handleClick}
+                                                             className="fa fa-list-alt"/></li>
+
         let userInfo = window.location.pathname !== "/Home" ? <UserMiniInfo/> : null;
 
         return (<div>
@@ -82,6 +116,8 @@ class Menu extends React.Component {
                 {homeBtn}
                 {shopBtn}
                 {garageBtn}
+                {chatBtn}
+                {summaryBtn}
                 <li id={"settings"} onClick={this.handleClick}><i className="fa fa-cog"/></li>
                 <li id={"logout"} onClick={this.handleClick}><i className="fa fa-sign-out"/></li>
             </ul>

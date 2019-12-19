@@ -8,9 +8,7 @@ import Register from "./pages/Register";
 import About from "./pages/About";
 
 import Menu from "./Menu";
-import HomePage from "./pages/HomePage";
-import Shop from "./pages/Shop";
-import Garage from "./pages/Garage";
+
 
 function App() {
     return (
@@ -25,6 +23,8 @@ function App() {
                     <Route path={'/Home'} component={Menu}/>
                     <Route path={'/Shop'} component={Menu}/>
                     <Route path={'/Garage'} component={Menu}/>
+                    <Route path={'/Chat'} component={Menu}/>
+                    <Route path={'/Summary'} component={Menu}/>
                 </Switch>
             </div>
         </Router>

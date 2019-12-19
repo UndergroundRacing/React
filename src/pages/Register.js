@@ -1,5 +1,6 @@
 import React from 'react';
-import '../css/main.css';
+import '../css/styles.css';
+import '../css/login_register.css';
 
 //import '../css/mobile.css';
 import Main from "./Main";
@@ -70,6 +71,10 @@ class Register extends React.Component {
 
             fetch('http://127.0.0.1:8000/api/v1/register', {
                 method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify({
                     name: this.state.name,
                     email: this.state.email,
